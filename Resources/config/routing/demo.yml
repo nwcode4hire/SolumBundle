@@ -1,0 +1,11 @@
+solum_demo_index:
+    pattern:  /index
+    defaults: { _controller: 'SolumBundle:Demo:index' }
+
+solum_demo_paginated_table:
+    pattern:  /paginated-table/{type}
+    defaults: { _controller: 'SolumBundle:Demo:paginatedTable', type: flat }
+
+solum_demo_ajax_data:
+    pattern:  /ajax-data/{type}
+    defaults: { _controller: 'SolumBundle:Demo:ajaxData', type: flat }

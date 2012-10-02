@@ -1,0 +1,50 @@
+.jslint-output {
+    overflow-y: scroll;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    background-color: black;
+    color: chartreuse;
+    border: solid 1px lightgray;
+    padding: 10px;
+    z-index: 10;
+}
+.jslint-output-table {
+    height: 500px;
+}
+.jslint-output tr {
+    cursor: pointer;
+    color: chartreuse;
+}
+.jslint-output td {
+    font-size: 12px;
+    color: chartreuse;
+
+}
+
+.jslint-output .table tbody tr:hover td, .jslint-output .table tbody tr:hover th {
+    background-color: gray;
+}
+
+.jslint-highlight, .jslint-highlight code, .syntaxhighlighter .jslint-highlight.line {
+    background: none !important;
+    background-color: #eed3d7 !important
+}
+
+.jslint-output tr.jslint-highlight td {
+    background-color: #6E0002;
+}
+
+.code div.container:before, .code div.container:after {
+    display: inline;
+}
+
+.solum-node, .solum-node a {
+    color: black;
+}
+
+.solum-leaf, .solum-leaf a {
+    color: green;
+}
+
+

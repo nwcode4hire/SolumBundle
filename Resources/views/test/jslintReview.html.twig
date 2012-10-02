@@ -1,0 +1,75 @@
+{% extends 'SolumBundle::layout.html.twig' %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/test/assets/routes.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/test/models/jslintReview.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/solum/lib/ko-binding-folderTree.js') }}"></script>
+
+  {# Syntax Highlighter Files #}
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/vendor/SyntaxHighlighter/scripts/XRegExp.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/vendor/SyntaxHighlighter/scripts/shCore.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/vendor/SyntaxHighlighter/scripts/shBrushJScript.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('bundles/solum/css/vendor/SyntaxHighlighter/styles/shCore.css') }}" />
+  <link rel="stylesheet" href="{{ asset('bundles/solum/css/vendor/SyntaxHighlighter/styles/shThemeEclipse.css') }}" />
+  <link rel="stylesheet" href="{{ asset('bundles/solum/css/main.css') }}" />
+{% endblock %}
+
+{% block pagetitle %}
+  <div class="row">
+    <h1><a href="{{ path('solum_test_jslint_select_file') }}">JS Lint Code Quality Checker</a></h1>
+  </div>
+{% endblock %}
+
+{% block body %}
+  <div class="jslint-header row">
+    <div class="jslint-output span5" data-bind="visible: jslintOutput.list().length > 0">
+      <div>
+        <h3>JS Lint Output <small><a id="jslint-header-collapse-link" href="#" data-bind="click: toggleLinkClickHandler">Collapse/Expand</a></small></h3></div>
+      <div class="jslint-output-table">
+        <table class="table table-condensed">
+          <thead>
+            <th>#</th>
+            <th>Reason</th>
+            <th>Line</th>
+            <th>Col</th>
+          </thead>
+          <tbody data-bind="foreach: {data: jslintOutput.list}">
+            <tr data-bind="if: $data !== null, click: $root.onLintErrorRowClick">
+              <td data-bind="text: $index"></td>
+              <td data-bind="text: $data.reason"></td>
+              <td data-bind="text: $data.line"></td>
+              <td data-bind="text: $data.character"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="js-sourcefile">
+      <div><h3>File Selected: <span>{{ target }}</span></h3></div>
+      <div class="jslint-source"></div>
+    </div>
+  </div>
+  <div>
+    <script type="syntaxhighlighter" class="brush: js"><![CDATA[
+{{ file_content | raw }}
+    ]]></script>
+  </div>
+
+  <script type="text/javascript">
+    $(function() {
+      SyntaxHighlighter.all();
+
+      model = solum.getModel('jslint', 'review');
+      model.target = '{{ target }}';
+      ko.applyBindings(model);
+      model.lintReviewFile();
+    });
+  </script>
+{% endblock %}

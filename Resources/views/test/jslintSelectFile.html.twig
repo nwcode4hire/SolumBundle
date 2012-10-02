@@ -1,0 +1,35 @@
+{% extends 'SolumBundle::layout.html.twig' %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/test/assets/routes.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/test/models/jslintSelectFile.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/solum/lib/ko-binding-folderTree.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('bundles/solum/css/main.css') }}" />
+{% endblock %}
+
+{% block pagetitle %}
+  <div class="row">
+    <h1>JS Lint Code Quality Checker</h1>
+  </div>
+{% endblock %}
+
+{% block body %}
+  <div class="jslint-header row">
+    <div><h3>Pick a File to Test</h3></div>
+    <div data-bind="folderTree: {data: filetree.hierarchy, onLeaf: onLeaf}"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    $(function() {
+      model = solum.getModel('jslint', 'selectFile');
+      ko.applyBindings(model);
+      model.getFileList();
+    });
+  </script>
+{% endblock %}

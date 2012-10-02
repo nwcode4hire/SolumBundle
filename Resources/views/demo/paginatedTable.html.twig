@@ -1,0 +1,105 @@
+{% extends 'SolumBundle::layout.html.twig' %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/demo/assets/routes.js') }}"></script>
+{% endblock %}
+
+{% block pagetitle %}
+  <div class="row">
+    <h1>Paginated Table Example</h1>
+  </div>
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <table class="table table-striped table-condensed">
+      <thead>
+        <tr>
+          {% for i in 0..4 %}
+            <th>
+              <span id="header_text_{{ i }}" class="report-header-text" data-bind="visible: (!table.page.totalCount() ||  !ajaxManager.isOK())">Column {{ i }}</span>
+              <a id="header_link_{{ i }}" style="display: none" href="#" data-bind="click: function(data, event) { table.page.toggleSort({{ i }}) }, visible: (table.page.totalCount() && ajaxManager.isOK())">Column {{ i }}</a>
+              <span id="header_sort_{{ i }}" class="sort-direction" style="display: none" data-bind="text: table.page.sortDir, visible: (table.page.sortCol() == {{ i }} && table.page.totalCount())"></span>
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: {data: table.list}">
+        {% if type == "named" %}
+          <tr>
+            <td><span data-bind="text: $data.col0"></span></td>
+            <td><span data-bind="text: $data.col1"></span></td>
+            <td><span data-bind="text: $data.col2"></span></td>
+            <td><span data-bind="text: $data.col3"></span></td>
+            <td><span data-bind="text: $data.col4"></span></td>
+          </tr>
+        {% else %}
+          <tr data-bind="foreach: {data: $data}">
+            <td><span data-bind="text: $data"></span></td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    <div id="loading_symbol" style="display: none" data-bind="visible: ajaxManager.isLoading()">
+      <div class="centered" style="width:50px; margin:0px auto;">
+        <img height="50px" width="50px" src="{{ asset('bundles/solum/images/demo/loading.gif') }}"/>
+      </div>
+    </div>
+    <div style="display: none" class="btn-group" data-bind="visible: (table.page.totalCount() && ajaxManager.isOK())">
+      <a id="page_first" href="#" class="btn" data-bind="click: table.page.first, css: {disabled: table.page.isFirstPage}">&lt;&lt;</a>
+      <a id="page_previous" href="#" class="btn" data-bind="click: table.page.previous, css: {disabled: table.page.isFirstPage}">&lt;</a>
+      <a id="page_number" href="#" class="btn disabled"><span data-bind="text: table.page.page"></span> of <span data-bind="text: table.page.totalPages"></span></a>
+      <a id="page_next" href="#" class="btn" data-bind="click: table.page.next, css: {disabled: table.page.isLastPage}">&gt;</a>
+      <a id="page_last" href="#" class="btn" data-bind="click: table.page.last, css: {disabled: table.page.isLastPage}">&gt;&gt;</a>
+    </div>
+    <div style="display: none" class="alert alert-info info-notification" data-bind="visible: (!table.page.totalCount() && isFirstRequestMade() && ajaxManager.isOK())">
+      <span>No Results</span>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  // Set the URL prefix to be this environment's alias, in prod there would be
+  // no alias and this should probably go in the layout
+  solum.configureService('ajax', {prefix: '{{ alias }}'});
+
+  // Define the model object for the page
+  var pageModel = function() {
+    var self         = this;
+    self.table       = solum.getModel('tables', 'paginatedTable');
+    self.ajaxManager = solum.getService('ajax');
+    self.isFirstRequestMade = ko.observable(false);
+
+    // Process the data and break it into the page and response objects
+    var ajaxSuccess = function(data) {
+      self.table.page.fromObj(data.Page);
+      self.table.addItems(data.Response);
+    };
+
+    self.getData = function() {
+      self.table.empty();
+
+      var params = {
+          routeData: {type: "flat"},
+          data: self.table.page.toObj()
+      };
+
+      self.ajaxManager.request('solum_demo_ajax_data', params, ajaxSuccess);
+      self.isFirstRequestMade(true);
+    }
+
+    // Set the onChange trigger in the page object to force a reload when the sort
+    // or page changes
+    self.table.page.onChange = self.getData;
+
+  }
+
+  // Create a model instance, apply bindings, and make the first ajax request
+  $(function() {
+    var model = new pageModel();
+    ko.applyBindings(model);
+    model.getData();
+  });
+
+</script>
+{% endblock %}

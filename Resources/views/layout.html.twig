@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/solum/lib/solum.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/solum/js/solum/lib/models/tables.js') }}"></script>
+  <script type="text/javascript">
+    // Set the URL prefix to be this environment's alias, in prod there would be
+    // no alias
+    solum.configureService('ajax', {prefix: '{{ alias }}'});
+  </script>
+{% endblock %}
+{% block pagetitle %}{% endblock %}
+
+{% block body %}{% endblock %}
