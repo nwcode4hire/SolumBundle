@@ -1,6 +1,6 @@
 <?php
 
-namespace LS\SolumBundle\Controller;
+namespace Beum\Bundle\SolumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +15,46 @@ use Symfony\Component\Finder\Finder;
  */
 class TestController extends Controller
 {
+    public function selectSuiteForUnitTestAction(Request $request)
+    {
+        return $this->render('BeumSolumBundle:test:mochaSelectSuite.html.twig');
+    }
+
+    /**
+     * Similiar to the select files action for jslint, but it looks for js folders
+     * with suiteDefinition, runSuite, runSuiteCoverage js files for it to work.
+     */
+    public function getMochaSuitesAction(Request $request)
+    {
+        $projectRoot = $this->getProjectRoot();
+        $exclude = $request->get('exclude', array());
+
+        if(!is_dir($projectRoot . '/web/coverage/')) {
+            $json = '[]';
+        } else {
+
+            // Find all the javascript files in the LS dir
+            $jsFileFinder = new Finder();
+            $jsFileFinder
+                ->files()
+                ->in($projectRoot . '/web/coverage/')
+                ->name('*.html');
+
+            $files = array();
+            foreach($jsFileFinder as $file) {
+                $relpath = str_replace($projectRoot, '', $file->getRealpath());
+
+                $files[] = $relpath;
+            }
+
+            $json = json_encode($files);
+        }
+
+        $r = new Response($json);
+        $r->headers->set('content-type', 'application/json');
+        return $r;
+    }
+
     /**
      * Loads all the files necessary to run mocha in the browser
      */
@@ -27,9 +67,18 @@ class TestController extends Controller
      * Runs the JSCoverage task to create the instrumented JS files and then generates
      * the HTML page in the temp directory and serves it up in the response
      */
-    public function unitTestCoverageAction()
+    public function unitTestCoverageAction(Request $request)
     {
+        $projectRoot = $this->getProjectRoot();
+        $target = $request->get('target', false);
 
+        // Redirect if nothing was sent
+        if(!$target || !is_file($projectRoot . $target)) {
+            return $this->redirect('beum_solum_test_mocha_select_suite');
+        }
+
+        $content = file_get_contents($projectRoot . $target);
+        return new Response($content);
     }
 
     /**
@@ -38,7 +87,13 @@ class TestController extends Controller
      */
     public function jsLintSelectFileAction()
     {
-        return $this->render('SolumBundle:test:jslintSelectFile.html.twig');
+        return $this->render('BeumSolumBundle:test:jslintSelectFile.html.twig');
+    }
+
+    private function getProjectRoot()
+    {
+        $root =  $this->get('kernel')->getRootDir(); // the 'app' dir
+        return str_replace('/app', '', $root);
     }
 
     /**
@@ -47,7 +102,7 @@ class TestController extends Controller
      */
     public function jsLintReviewFileAction(Request $request)
     {
-        $root = $this->get('kernel')->getRootDir(); // this is the 'app' directory
+        $projectRoot = $this->getProjectRoot();
         $target = $request->get('target', false);
 
         // Return nothing if the target was not sent
@@ -55,10 +110,10 @@ class TestController extends Controller
             $data = "Target not specified.";
         }
         else {
-            $data = file_get_contents($root . '/../src/LS/' . $target);
+            $data = file_get_contents($projectRoot . $target);
         }
 
-        return $this->render('SolumBundle:test:jslintReview.html.twig', array(
+        return $this->render('BeumSolumBundle:test:jslintReview.html.twig', array(
             'file_content' => $data,
             'target'       => $target
         ));
@@ -73,18 +128,19 @@ class TestController extends Controller
      */
     public function jsLintFilesAction()
     {
-        $root = $this->get('kernel')->getRootDir(); // this is the 'app' directory
+        $projectRoot = $this->getProjectRoot();
 
         // Find all the javascript files in the LS dir
         $jsFileFinder = new Finder();
-        $jsFileFinder->files()->in($root . '/../src/LS/')->name('*.js');
+        $jsFileFinder
+            ->files()
+            ->in($projectRoot . '/src/')
+            ->in($projectRoot . '/vendor/bundles/Beum/')
+            ->name('*.js');
 
         $files = array();
         foreach($jsFileFinder as $file) {
-            // strip out everything before /LS/
-            $removePath = '/LS/';
-            $pos        = strpos($file->getRealpath(), $removePath);
-            $relpath    = substr($file->getRealpath(), $pos + strlen($removePath));
+            $relpath = str_replace($projectRoot, '', $file->getRealpath());
 
             $files[] = $relpath;
         }
@@ -102,7 +158,7 @@ class TestController extends Controller
      */
     public function jsLintRunAction(Request $request)
     {
-        $root = $this->get('kernel')->getRootDir(); // this is the 'app' directory
+        $projectRoot = $this->getProjectRoot();
         $target = $request->get('target', false);
 
         // Return nothing if the target was not sent
@@ -110,7 +166,7 @@ class TestController extends Controller
             return new Response('{}');
         }
 
-        $target = $root . '/../src/LS/' . $target;
+        $target = $projectRoot . $target;
         $output = `jslint $target --indent=2 --terse --json --maxerr=100`;
 
         $r = new Response($output);

@@ -1,7 +1,7 @@
-solum_bundle_demo:
-  resource: "@SolumBundle/Resources/config/routing/demo.yml"
+linkshare_solum_bundle_demo:
+  resource: "@LinkShareSolumBundle/Resources/config/routing/demo.yml"
   prefix:   /demo
 
-solum_bundle_test:
-  resource: "@SolumBundle/Resources/config/routing/test.yml"
+linkshare_solum_bundle_test:
+  resource: "@LinkShareSolumBundle/Resources/config/routing/test.yml"
   prefix:   /test

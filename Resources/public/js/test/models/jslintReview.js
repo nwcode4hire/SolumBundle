@@ -5,20 +5,24 @@
   root.models.jslint.review = function() {
     var self = this;
 
-    self.ajaxManager = root.getService('ajax');
+    self.ajaxManager = root.getService('ajax', 'manager');
+
+    self.isTestDone = ko.observable(false);
+
     self.target = "";
 
     // For storing the result output
-    self.jslintOutput = root.getModel('tables', 'paginatedTable');
+    self.jslintOutput = root.getComponent('tables', 'paginatedTable');
 
     // Make the ajax request to get the lint output
     self.lintReviewFile = function(target) {
       self.jslintOutput.empty();
       self.ajaxManager.request(
-        'solum_test_jslint_run',
+        'linkshare_solum_test_jslint_run',
         {data: {target: self.target}},
         function(data) {
           self.jslintOutput.addItems(data[1]);
+          self.isTestDone(true);
         }
       );
     }
@@ -38,6 +42,6 @@
         $('.jslint-output-table').toggle();
     }
   }
-})(solum)
+}(solum))
 
 

@@ -1,0 +1,4 @@
+/vendor/
+/nbproject/*
+*.php~
+/node_modules

@@ -1,6 +1,6 @@
 <?php
 
-namespace LS\SolumBundle\Command;
+namespace LinkShare\Bundle\SolumBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Finder\Finder;
@@ -85,7 +85,7 @@ class RunJSLintCommand extends ContainerAwareCommand
             $path = $file->getRealPath();
             if(!$isJson && !$terse) $output->writeln("<comment>></comment> <info>Linting: </info><file>{$path}</file>");
 
-            $jslintResult = `jslint --terse --json --passfail $path`;
+            $jslintResult = `jslint --indent=2 --forin --terse --json --passfail $path`;
             $jsObj = json_decode($jslintResult);
 
             if(count($jsObj[1]) > 0) {

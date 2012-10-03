@@ -1,8 +1,8 @@
-{% extends 'SolumBundle::layout.html.twig' %}
+{% extends 'LinkShareSolumBundle::layout.html.twig' %}
 
 {% block javascripts %}
   {{ parent() }}
-  <script type="text/javascript" src="{{ asset('bundles/solum/js/demo/assets/routes.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/demo/assets/routes.js') }}"></script>
 {% endblock %}
 
 {% block pagetitle %}
@@ -43,7 +43,7 @@
     </table>
     <div id="loading_symbol" style="display: none" data-bind="visible: ajaxManager.isLoading()">
       <div class="centered" style="width:50px; margin:0px auto;">
-        <img height="50px" width="50px" src="{{ asset('bundles/solum/images/demo/loading.gif') }}"/>
+        <img height="50px" width="50px" src="{{ asset('bundles/linksharesolum/images/demo/loading.gif') }}"/>
       </div>
     </div>
     <div style="display: none" class="btn-group" data-bind="visible: (table.page.totalCount() && ajaxManager.isOK())">
@@ -60,14 +60,14 @@
 
 <script type="text/javascript">
   // Set the URL prefix to be this environment's alias, in prod there would be
-  // no alias and this should probably go in the layout
-  solum.configureService('ajax', {prefix: '{{ alias }}'});
+  // no alias and this is already in the layout
+  solum.configureService('ajax', 'manager', {prefix: '{{ app.request.getScheme() }}://{{ app.request.getHost() }}{{ app.request.getBasePath() }}/'});
 
   // Define the model object for the page
   var pageModel = function() {
     var self         = this;
-    self.table       = solum.getModel('tables', 'paginatedTable');
-    self.ajaxManager = solum.getService('ajax');
+    self.table       = solum.getComponent('tables', 'paginatedTable');
+    self.ajaxManager = solum.getService('ajax', 'manager');
     self.isFirstRequestMade = ko.observable(false);
 
     // Process the data and break it into the page and response objects
@@ -84,7 +84,7 @@
           data: self.table.page.toObj()
       };
 
-      self.ajaxManager.request('solum_demo_ajax_data', params, ajaxSuccess);
+      self.ajaxManager.request('linkshare_solum_demo_ajax_data', params, ajaxSuccess);
       self.isFirstRequestMade(true);
     }
 

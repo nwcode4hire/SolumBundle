@@ -1,11 +1,12 @@
 // Modularize the solum variable to make it easier to rename refactor
 (function(root) {
-  root.models.jslint = {};
+  root.models.mocha = {};
 
-  root.models.jslint.selectFile = function() {
+  root.models.mocha.selectSuite = function() {
     var self = this;
 
     self.ajaxManager = root.getService('ajax', 'manager');
+    self.actionType = ko.observable('');
 
     // Create a folder structure representation of the files
     self.filetree     = root.getComponent('tables', 'tree');
@@ -15,28 +16,20 @@
     self.onLeaf = function($li, level) {
       var $a = $li.find('a');
       var target = $a.attr('data-solum-target-file');
-      var url    = self.ajaxManager.generateURL('linkshare_solum_test_jslint_review_file', {});
+      var url    = self.ajaxManager.generateURL('linkshare_solum_test_mocha_run_coverage', {});
       url = url + '?target=' + encodeURI(target);
       $a.attr('href', url);
-    };
+    }
 
-    self.getFileList = function() {
+    self.getSuiteList = function() {
       self.ajaxManager.request(
-        'linkshare_solum_test_jslint_files',
+        'linkshare_solum_test_mocha_get_suites',
         {},
         function(data) {
           self.filetree.addItems(data);
         }
       );
-    };
-
-    self.showAll = function () {
-      $('.solum-tree-node, .solum-node').show();
-    };
-
-    self.hideAll = function () {
-      $('.solum-tree-node.level1').hide();
-    };
+    }
   }
 })(solum)
 

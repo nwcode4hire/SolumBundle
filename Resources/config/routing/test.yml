@@ -1,15 +1,27 @@
-solum_test_jslint_select_file:
+linkshare_solum_test_jslint_select_file:
     pattern:  /jslint/
-    defaults: { _controller: 'SolumBundle:Test:jsLintSelectFile' }
+    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintSelectFile' }
 
-solum_test_jslint_review_file:
+linkshare_solum_test_jslint_review_file:
     pattern:  /jslint/review/
-    defaults: { _controller: 'SolumBundle:Test:jsLintReviewFile' }
+    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintReviewFile' }
 
-solum_test_jslint_files:
+linkshare_solum_test_jslint_files:
     pattern:  /jslint/files/
-    defaults: { _controller: 'SolumBundle:Test:jsLintFiles' }
+    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintFiles' }
 
-solum_test_jslint_run:
+linkshare_solum_test_jslint_run:
     pattern:  /jslint/run/
-    defaults: { _controller: 'SolumBundle:Test:jsLintRun' }
+    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintRun' }
+
+linkshare_solum_test_mocha_select_suite:
+    pattern:  /mocha/
+    defaults: { _controller: 'LinkShareSolumBundle:Test:selectSuiteForUnitTest' }
+
+linkshare_solum_test_mocha_get_suites:
+    pattern:  /mocha/suites/
+    defaults: { _controller: 'LinkShareSolumBundle:Test:getMochaSuites' }
+
+linkshare_solum_test_mocha_run_coverage:
+    pattern:  /mocha/coverage/
+    defaults: { _controller: 'LinkShareSolumBundle:Test:unitTestCoverage' }

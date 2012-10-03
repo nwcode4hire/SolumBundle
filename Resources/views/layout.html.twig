@@ -1,15 +1,36 @@
-{% extends "::base.html.twig" %}
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block meta_title %}{% endblock %}</title>
+    {% block javascripts %}
+      {# Vendor Libraries #}
+      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/json.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/jquery.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/knockout.js') }}"></script>
+      {#<script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/lib/vendor/date.js') }}"></script>#}
 
-{% block javascripts %}
-  {{ parent() }}
-  <script type="text/javascript" src="{{ asset('bundles/solum/js/solum/lib/solum.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('bundles/solum/js/solum/lib/models/tables.js') }}"></script>
-  <script type="text/javascript">
-    // Set the URL prefix to be this environment's alias, in prod there would be
-    // no alias
-    solum.configureService('ajax', {prefix: '{{ alias }}'});
-  </script>
-{% endblock %}
-{% block pagetitle %}{% endblock %}
+      {# Twitter Bootstrap JS Files #}
+      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/bootstrap.min.js') }}"></script>
 
-{% block body %}{% endblock %}
+      {# Solum Libraries #}
+      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/solum/lib/solum.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/solum/lib/services/ajax.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/solum/lib/components/tables.js') }}"></script>
+      <script type="text/javascript">
+        solum.configureService('ajax', 'manager', {prefix: '{{ app.request.getScheme() }}://{{ app.request.getHost() }}{{ app.request.getBasePath() }}/'});
+      </script>
+    {% endblock %}
+
+    {% block stylesheets %}
+      <link rel="stylesheet" href="{{ asset('bundles/linksharesolum/css/vendor/bootstrap.min.css') }}" />
+    {% endblock %}
+  </head>
+    <body>
+      {% block header %}{% endblock %}
+      <div class="{% block container %}container{% endblock %}">
+        {% block pagetitle %}{% endblock %}
+        {% block body %}{% endblock %}
+      </div>
+      {% block footer %}{% endblock %}
+    </body>
+</html>

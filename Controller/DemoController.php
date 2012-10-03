@@ -1,6 +1,6 @@
 <?php
 
-namespace LS\SolumBundle\Controller;
+namespace Beum\Bundle\SolumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +12,7 @@ class DemoController extends Controller
 
     public function indexAction()
     {
-        return $this->render('SolumBundle:demo:index.html.twig', array(
+        return $this->render('BeumSolumBundle:demo:index.html.twig', array(
             'examples' => array(
                 array(
                     'name'        => 'Paginated Table',
@@ -33,7 +33,7 @@ class DemoController extends Controller
      */
     public function paginatedTableAction($type)
     {
-        return $this->render('SolumBundle:demo:paginatedTable.html.twig', array(
+        return $this->render('BeumSolumBundle:demo:paginatedTable.html.twig', array(
             'type' => $type
         ));
     }

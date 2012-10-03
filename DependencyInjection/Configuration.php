@@ -1,6 +1,6 @@
 <?php
 
-namespace LS\MirageBundle\DependencyInjection;
+namespace Beum\Bundle\SolumBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ls_mirage');
+        $rootNode = $treeBuilder->root('beum_solum');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

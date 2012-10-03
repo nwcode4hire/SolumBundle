@@ -3,7 +3,7 @@
 {% block javascripts %}
   {{ parent() }}
   <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/test/assets/routes.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/test/models/jslintSelectFile.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/test/models/mochaSelectSuite.js') }}"></script>
   <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/solum/lib/ko-binding-folderTree.js') }}"></script>
 {% endblock %}
 
@@ -14,14 +14,23 @@
 
 {% block pagetitle %}
   <div class="row">
-    <h1>JS Lint Code Quality Checker</h1>
+    <h1>Mocha JS Unit Test Coverage</h1>
   </div>
 {% endblock %}
 
 {% block body %}
-  <div class="jslint-header row">
-    <div><h3>Pick a File to Test</h3></div>
-    <div><a href="#" data-bind="click: showAll">Show All</a> | <a href="#" data-bind="click: hideAll">Hide All</a></div>
+  <div class="row">
+    <div>
+      <h3>Not Seeing Your JS Suite's Coverage Report? <small>Did your run the command:</small></h3>
+    </div>
+    <div>
+      <code>
+  $> php app/console solum:test:mocha:coverage
+      </code>
+    </div>
+  </div>
+  <div class="row">
+    <div><h3>Pick a Coverage Report to View</h3></div>
     <div id="loading_symbol" style="display: none" data-bind="visible: ajaxManager.isLoading()">
       <div class="centered" style="width:50px; margin:0px auto;">
         <img height="50px" width="50px" src="{{ asset('bundles/linksharesolum/images/demo/loading.gif') }}"/>
@@ -30,13 +39,11 @@
     <div data-bind="folderTree: {data: filetree.hierarchy, onLeaf: onLeaf}"></div>
   </div>
 
-
-
   <script type="text/javascript">
     $(function() {
-      model = solum.getModel('jslint', 'selectFile');
+      model = solum.getModel('mocha', 'selectSuite');
       ko.applyBindings(model);
-      model.getFileList();
+      model.getSuiteList();
     });
   </script>
 {% endblock %}
