@@ -1,6 +1,6 @@
 <?php
 
-namespace LinkShare\Bundle\SolumBundle\Command;
+namespace Beum\Bundle\SolumBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Finder\Finder;
