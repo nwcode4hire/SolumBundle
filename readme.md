@@ -12,16 +12,16 @@ In addition to packaging the solum.js library, the SolumBundle provides the foll
 Add the following to your `[project]/deps` file:
 
     [SolumBundle]
-        git=ssh://github.private.linksynergy.com/brandon-eum/SolumBundle.git
-        target=/bundles/LinkShare/Bundle/SolumBundle
+        git=ssh://github.com/beum/SolumBundle.git
+        target=/bundles/Beum/Bundle/SolumBundle
 
 Add the following to your `[project]/app/AppKernel.php`
 
-    new LinkShare\Bundle\SolumBundle\LinkShareSolumBundle()
+    new Beum\Bundle\SolumBundle\BeumSolumBundle()
 
 Add the following to your `[project]/app/autoload.php`
 
-    'LinkShare' => __DIR__.'/../vendor/bundles',
+    'Beum' => __DIR__.'/../vendor/bundles',
 
 ##Usage
 ###Demo Pages
