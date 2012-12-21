@@ -1,27 +1,27 @@
-linkshare_solum_test_jslint_select_file:
+beum_solum_test_jslint_select_file:
     pattern:  /jslint/
-    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintSelectFile' }
+    defaults: { _controller: 'BeumSolumBundle:Test:jsLintSelectFile' }
 
-linkshare_solum_test_jslint_review_file:
+beum_solum_test_jslint_review_file:
     pattern:  /jslint/review/
-    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintReviewFile' }
+    defaults: { _controller: 'BeumSolumBundle:Test:jsLintReviewFile' }
 
-linkshare_solum_test_jslint_files:
+beum_solum_test_jslint_files:
     pattern:  /jslint/files/
-    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintFiles' }
+    defaults: { _controller: 'BeumSolumBundle:Test:jsLintFiles' }
 
-linkshare_solum_test_jslint_run:
+beum_solum_test_jslint_run:
     pattern:  /jslint/run/
-    defaults: { _controller: 'LinkShareSolumBundle:Test:jsLintRun' }
+    defaults: { _controller: 'BeumSolumBundle:Test:jsLintRun' }
 
-linkshare_solum_test_mocha_select_suite:
+beum_solum_test_mocha_select_suite:
     pattern:  /mocha/
-    defaults: { _controller: 'LinkShareSolumBundle:Test:selectSuiteForUnitTest' }
+    defaults: { _controller: 'BeumSolumBundle:Test:selectSuiteForUnitTest' }
 
-linkshare_solum_test_mocha_get_suites:
+beum_solum_test_mocha_get_suites:
     pattern:  /mocha/suites/
-    defaults: { _controller: 'LinkShareSolumBundle:Test:getMochaSuites' }
+    defaults: { _controller: 'BeumSolumBundle:Test:getMochaSuites' }
 
-linkshare_solum_test_mocha_run_coverage:
+beum_solum_test_mocha_run_coverage:
     pattern:  /mocha/coverage/
-    defaults: { _controller: 'LinkShareSolumBundle:Test:unitTestCoverage' }
+    defaults: { _controller: 'BeumSolumBundle:Test:unitTestCoverage' }

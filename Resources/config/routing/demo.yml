@@ -1,11 +1,11 @@
-linkshare_solum_demo_index:
+beum_solum_demo_index:
     pattern:  /index
-    defaults: { _controller: 'LinkShareSolumBundle:Demo:index' }
+    defaults: { _controller: 'BeumSolumBundle:Demo:index' }
 
-linkshare_solum_demo_paginated_table:
+beum_solum_demo_paginated_table:
     pattern:  /paginated-table/{type}
-    defaults: { _controller: 'LinkShareSolumBundle:Demo:paginatedTable', type: flat }
+    defaults: { _controller: 'BeumSolumBundle:Demo:paginatedTable', type: flat }
 
-linkshare_solum_demo_ajax_data:
+beum_solum_demo_ajax_data:
     pattern:  /ajax-data/{type}
-    defaults: { _controller: 'LinkShareSolumBundle:Demo:ajaxData', type: flat }
+    defaults: { _controller: 'BeumSolumBundle:Demo:ajaxData', type: flat }
