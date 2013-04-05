@@ -11,8 +11,8 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
-            "beum\\SolumBundle": ""
+            "Beum\\SolumBundle": ""
         }
     },
-    "target-dir": "beum/SolumBundle"
+    "target-dir": "Beum/SolumBundle"
 }
