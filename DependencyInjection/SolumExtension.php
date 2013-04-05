@@ -1,6 +1,6 @@
 <?php
 
-namespace Beum\Bundle\SolumBundle\DependencyInjection;
+namespace Beum\SolumBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

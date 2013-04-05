@@ -1,6 +1,6 @@
 <?php
 
-namespace Beum\Bundle\SolumBundle\Controller;
+namespace Beum\SolumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
