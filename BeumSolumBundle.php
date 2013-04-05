@@ -1,6 +1,6 @@
 <?php
 
-namespace Beum\Bundle\SolumBundle;
+namespace Beum\SolumBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
