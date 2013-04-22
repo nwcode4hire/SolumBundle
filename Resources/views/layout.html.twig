@@ -4,25 +4,25 @@
     <title>{% block meta_title %}{% endblock %}</title>
     {% block javascripts %}
       {# Vendor Libraries #}
-      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/json.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/jquery.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/knockout.js') }}"></script>
-      {#<script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/lib/vendor/date.js') }}"></script>#}
+      <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/vendor/json.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/vendor/jquery.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/vendor/knockout.js') }}"></script>
+      {#<script type="text/javascript" src="{{ asset('bundles/beumsolum/js/lib/vendor/date.js') }}"></script>#}
 
       {# Twitter Bootstrap JS Files #}
-      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/vendor/bootstrap.min.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/vendor/bootstrap.min.js') }}"></script>
 
       {# Solum Libraries #}
-      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/solum/lib/solum.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/solum/lib/services/ajax.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/solum/lib/components/tables.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/solum/lib/solum.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/solum/lib/services/ajax.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/solum/lib/components/tables.js') }}"></script>
       <script type="text/javascript">
         solum.configureService('ajax', 'manager', {prefix: '{{ app.request.getScheme() }}://{{ app.request.getHost() }}{{ app.request.getBasePath() }}/'});
       </script>
     {% endblock %}
 
     {% block stylesheets %}
-      <link rel="stylesheet" href="{{ asset('bundles/linksharesolum/css/vendor/bootstrap.min.css') }}" />
+      <link rel="stylesheet" href="{{ asset('bundles/beumsolum/css/vendor/bootstrap.min.css') }}" />
     {% endblock %}
   </head>
     <body>

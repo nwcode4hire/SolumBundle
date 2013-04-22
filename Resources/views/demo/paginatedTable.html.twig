@@ -1,8 +1,8 @@
-{% extends 'LinkShareSolumBundle::layout.html.twig' %}
+{% extends 'beumsolumBundle::layout.html.twig' %}
 
 {% block javascripts %}
   {{ parent() }}
-  <script type="text/javascript" src="{{ asset('bundles/linksharesolum/js/demo/assets/routes.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/beumsolum/js/demo/assets/routes.js') }}"></script>
 {% endblock %}
 
 {% block pagetitle %}
@@ -43,7 +43,7 @@
     </table>
     <div id="loading_symbol" style="display: none" data-bind="visible: ajaxManager.isLoading()">
       <div class="centered" style="width:50px; margin:0px auto;">
-        <img height="50px" width="50px" src="{{ asset('bundles/linksharesolum/images/demo/loading.gif') }}"/>
+        <img height="50px" width="50px" src="{{ asset('bundles/beumsolum/images/demo/loading.gif') }}"/>
       </div>
     </div>
     <div style="display: none" class="btn-group" data-bind="visible: (table.page.totalCount() && ajaxManager.isOK())">
