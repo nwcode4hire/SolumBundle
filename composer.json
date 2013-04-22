@@ -1,5 +1,5 @@
 {
-    "name": "beum/solumbundle",
+    "name": "nwcode4hire/solumbundle",
     "type": "symfony-bundle",
     "description": "A Bundle for solumn.js",
     "keywords": ["js", "Symfony2"],
